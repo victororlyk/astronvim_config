@@ -26,7 +26,7 @@ local config = {
         },
 
         -- Set colorscheme to use
-        colorscheme = "catppuccin",
+        colorscheme = "gruvbox",
 
         -- Add highlight groups in any theme
         highlights = {
@@ -42,6 +42,7 @@ local config = {
         options = {
                 opt = {
                         -- set to true or false etc.
+                        guicursor = "n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20",
                         relativenumber = true, -- sets vim.opt.relativenumber
                         number = true, -- sets vim.opt.number
                         spell = false, -- sets vim.opt.spell
@@ -57,7 +58,7 @@ local config = {
                         status_diagnostics_enabled = true, -- enable diagnostics in statusline
                         icons_enabled = true, -- disable icons in the UI (disable if no nerd font is available, requires :PackerSync after changing)
                         ui_notifications_enabled = true, -- disable notifications when toggling UI elements
-                        heirline_bufferline = false, -- enable new heirline based bufferline (requires :PackerSync after changing)
+                        heirline_bufferline = true, -- enable new heirline based bufferline (requires :PackerSync after changing)
                 },
         },
         -- If you need more control, you can use the function()...end notation
@@ -217,11 +218,43 @@ local config = {
                 },
         },
 
+        -- Customize Heirline options
+        heirline = {
+                -- -- Customize different separators between sections
+                -- separators = {
+                --   tab = { "", "" },
+                -- },
+                -- -- Customize colors for each element each element has a `_fg` and a `_bg`
+                colors = function(colors)
+                        colors.bg = "#282828"
+                        colors.section_bg = "#282828"
+                        colors.fg = "#458588"
+                        colors.section_fg = "#458588"
+                        return colors
+                end,
+                attributes = {
+                        mode = { bold = true },
+                },
+                -- -- Customize attributes of highlighting in Heirline components
+                -- attributes = {
+                --   -- styling choices for each heirline element, check possible attributes with `:h attr-list`
+                --   git_branch = { bold = true }, -- bold the git branch statusline component
+                -- },
+                -- -- Customize if icons should be highlighted
+                icon_highlights = {
+                        breadcrumbs = false, -- LSP symbols in the breadcrumbs
+                        file_icon = {
+                                winbar = false, -- Filetype icon in the winbar inactive windows
+                                statusline = true, -- Filetype icon in the statusline
+                        },
+                },
+        },
+
         -- Configure plugins
         plugins = {
                 init = {
                         -- You can disable default plugins as follows:
-                        -- ["goolord/alpha-nvim"] = { disable = true },
+                        ["goolord/alpha-nvim"] = { disable = true },
 
                         -- You can also add new plugins here as well:
                         -- Add plugins, the packer syntax without the "use"
@@ -241,6 +274,8 @@ local config = {
                         --     require("lsp_signature").setup()
                         --   end,
                         -- },
+                        -- pin function to the top
+                        { "nvim-treesitter/nvim-treesitter-context" },
                         -- color scheme
                         {
                                 "catppuccin/nvim",
@@ -251,6 +286,7 @@ local config = {
                                         }
                                 end,
                         },
+                        { "ellisonleao/gruvbox.nvim" },
                         -- split maximizer
                         { "szw/vim-maximizer" },
                         --       -- Rust support
@@ -356,9 +392,22 @@ local config = {
                                 "help",
                                 "rust",
                                 "typescript",
+                                "tsx",
                                 "javascript",
                                 "kotlin",
+                                "prisma",
+                                "css",
+                                "jsdoc",
+                                "sql",
+                                "scss",
+                                "html",
+                                "swift",
+                                "markdown",
                         },
+                },
+
+                telescope = {
+                        file_ignore_patterns = { "node_modules", ".idea" },
                 },
                 -- use mason-lspconfig to configure LSP installations
                 ["mason-lspconfig"] = { -- overrides `require("mason-lspconfig").setup(...)`
@@ -409,32 +458,6 @@ local config = {
                 },
         },
 
-        -- Customize Heirline options
-        heirline = {
-                -- -- Customize different separators between sections
-                -- separators = {
-                --   tab = { "", "" },
-                -- },
-                -- -- Customize colors for each element each element has a `_fg` and a `_bg`
-                -- colors = function(colors)
-                --   colors.git_branch_fg = astronvim.get_hlgroup "Conditional"
-                --   return colors
-                -- end,
-                -- -- Customize attributes of highlighting in Heirline components
-                -- attributes = {
-                --   -- styling choices for each heirline element, check possible attributes with `:h attr-list`
-                --   git_branch = { bold = true }, -- bold the git branch statusline component
-                -- },
-                -- -- Customize if icons should be highlighted
-                icon_highlights = {
-                        breadcrumbs = false, -- LSP symbols in the breadcrumbs
-                        file_icon = {
-                                winbar = false, -- Filetype icon in the winbar inactive windows
-                                statusline = true, -- Filetype icon in the statusline
-                        },
-                },
-        },
-
         -- Modify which-key registration (Use this with mappings table in the above.)
         ["which-key"] = {
                 -- Add bindings which show up as group name
@@ -461,6 +484,7 @@ local config = {
                 map("n", "<leader>sx", ":close<cr>", { desc = "close split" })
                 map("n", "<leader>sm", ":MaximizerToggle<cr>", { desc = "close split" })
 
+                vim.opt.background = "dark"
                 -- Set up custom filetypes
                 -- vim.filetype.add {
                 --   extension = {
