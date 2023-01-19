@@ -1,4 +1,3 @@
---              AstroNvim Configuration Table
 -- All configuration changes should go inside of the table below
 
 -- You can think of a Lua "table" as a dictionary like data structure the
@@ -42,12 +41,21 @@ local config = {
         options = {
                 opt = {
                         -- set to true or false etc.
-                        guicursor = "n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20",
+                        guicursor = "",
                         relativenumber = true, -- sets vim.opt.relativenumber
                         number = true, -- sets vim.opt.number
                         spell = false, -- sets vim.opt.spell
                         signcolumn = "auto", -- sets vim.opt.signcolumn to auto
                         wrap = false, -- sets vim.opt.wrap
+                        swapfile = false,
+                        backup = false,
+                        undodir = os.getenv "HOME" .. "/.vim/undodir",
+                        undofile = true,
+                        scrolloff = 8,
+                        cursorline = true,
+                        foldenable = false,
+                        foldexpr = "nvim_treesitter#foldexpr()", -- set Treesitter based folding
+                        foldmethod = "expr",
                 },
                 g = {
                         mapleader = " ", -- sets vim.g.mapleader
@@ -84,50 +92,6 @@ local config = {
                 "    ██ ██  ██ ██    ██ ██ ██ ████ ██",
                 "    ██  ██ ██  ██  ██  ██ ██  ██  ██",
                 "    ██   ████   ████   ██ ██      ██",
-        },
-
-        -- Default theme configuration
-        default_theme = {
-                -- Modify the color palette for the default theme
-                colors = {
-                        fg = "#abb2bf",
-                        bg = "#1e222a",
-                },
-                highlights = function(hl) -- or a function that returns a new table of colors to set
-                        local C = require "default_theme.colors"
-
-                        hl.Normal = { fg = C.fg, bg = C.bg }
-
-                        -- New approach instead of diagnostic_style
-                        hl.DiagnosticError.italic = true
-                        hl.DiagnosticHint.italic = true
-                        hl.DiagnosticInfo.italic = true
-                        hl.DiagnosticWarn.italic = true
-
-                        return hl
-                end,
-                -- enable or disable highlighting for extra plugins
-                plugins = {
-                        aerial = true,
-                        beacon = false,
-                        bufferline = true,
-                        cmp = true,
-                        dashboard = true,
-                        highlighturl = true,
-                        hop = false,
-                        indent_blankline = true,
-                        lightspeed = false,
-                        ["neo-tree"] = true,
-                        notify = true,
-                        ["nvim-tree"] = false,
-                        ["nvim-web-devicons"] = true,
-                        rainbow = true,
-                        symbols_outline = false,
-                        telescope = true,
-                        treesitter = true,
-                        vimwiki = false,
-                        ["which-key"] = true,
-                },
         },
 
         -- Diagnostics configuration (for vim.diagnostics.config({...})) when diagnostics are on
@@ -232,14 +196,12 @@ local config = {
                         colors.section_fg = "#458588"
                         return colors
                 end,
+                -- -- Customize attributes of highlighting in Heirline components
                 attributes = {
+                        -- styling choices for each heirline element, check possible attributes with `:h attr-list`
+                        git_branch = { bold = true }, -- bold the git branch statusline component
                         mode = { bold = true },
                 },
-                -- -- Customize attributes of highlighting in Heirline components
-                -- attributes = {
-                --   -- styling choices for each heirline element, check possible attributes with `:h attr-list`
-                --   git_branch = { bold = true }, -- bold the git branch statusline component
-                -- },
                 -- -- Customize if icons should be highlighted
                 icon_highlights = {
                         breadcrumbs = false, -- LSP symbols in the breadcrumbs
@@ -277,15 +239,6 @@ local config = {
                         -- pin function to the top
                         { "nvim-treesitter/nvim-treesitter-context" },
                         -- color scheme
-                        {
-                                "catppuccin/nvim",
-                                as = "catppuccin",
-                                config = function()
-                                        require("catppuccin").setup {
-                                                flavour = "macchiato", -- latte, frappe, mocha, mocha
-                                        }
-                                end,
-                        },
                         { "ellisonleao/gruvbox.nvim" },
                         -- split maximizer
                         { "szw/vim-maximizer" },
@@ -386,6 +339,7 @@ local config = {
                         -- return config -- return final config table
                 end,
                 treesitter = { -- overrides `require("treesitter").setup(...)`
+                        auto_install = true,
                         ensure_installed = {
                                 "lua",
                                 "vim",
@@ -481,7 +435,6 @@ local config = {
                 local map = vim.api.nvim_set_keymap
                 local unmap = vim.api.nvim_del_keymap
                 unmap("n", "<leader>sm")
-                map("n", "<leader>sx", ":close<cr>", { desc = "close split" })
                 map("n", "<leader>sm", ":MaximizerToggle<cr>", { desc = "close split" })
 
                 vim.opt.background = "dark"
