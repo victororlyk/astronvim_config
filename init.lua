@@ -41,7 +41,7 @@ local config = {
         options = {
                 opt = {
                         -- set to true or false etc.
-                        guicursor = "",
+                        guicursor = "n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20",
                         relativenumber = true, -- sets vim.opt.relativenumber
                         number = true, -- sets vim.opt.number
                         spell = false, -- sets vim.opt.spell
@@ -98,6 +98,35 @@ local config = {
         diagnostics = {
                 virtual_text = true,
                 underline = true,
+        },
+        -- Customize Heirline options
+        heirline = {
+                -- -- Customize different separators between sections
+                -- separators = {
+                --   tab = { "", "" },
+                -- },
+                -- -- Customize colors for each element each element has a `_fg` and a `_bg`
+                colors = function(colors)
+                        colors.bg = "#282828"
+                        colors.section_bg = "#282828"
+                        colors.fg = "#458588"
+                        colors.section_fg = "#458588"
+                        return colors
+                end,
+                -- -- Customize attributes of highlighting in Heirline components
+                attributes = {
+                        -- styling choices for each heirline element, check possible attributes with `:h attr-list`
+                        git_branch = { bold = true }, -- bold the git branch statusline component
+                        mode = { bold = true },
+                },
+                -- -- Customize if icons should be highlighted
+                icon_highlights = {
+                        breadcrumbs = false, -- LSP symbols in the breadcrumbs
+                        file_icon = {
+                                winbar = false, -- Filetype icon in the winbar inactive windows
+                                statusline = true, -- Filetype icon in the statusline
+                        },
+                },
         },
 
         -- Extend LSP configuration
@@ -179,36 +208,6 @@ local config = {
                 t = {
                         -- setting a mapping to false will disable it
                         -- ["<esc>"] = false,
-                },
-        },
-
-        -- Customize Heirline options
-        heirline = {
-                -- -- Customize different separators between sections
-                -- separators = {
-                --   tab = { "", "" },
-                -- },
-                -- -- Customize colors for each element each element has a `_fg` and a `_bg`
-                colors = function(colors)
-                        colors.bg = "#282828"
-                        colors.section_bg = "#282828"
-                        colors.fg = "#458588"
-                        colors.section_fg = "#458588"
-                        return colors
-                end,
-                -- -- Customize attributes of highlighting in Heirline components
-                attributes = {
-                        -- styling choices for each heirline element, check possible attributes with `:h attr-list`
-                        git_branch = { bold = true }, -- bold the git branch statusline component
-                        mode = { bold = true },
-                },
-                -- -- Customize if icons should be highlighted
-                icon_highlights = {
-                        breadcrumbs = false, -- LSP symbols in the breadcrumbs
-                        file_icon = {
-                                winbar = false, -- Filetype icon in the winbar inactive windows
-                                statusline = true, -- Filetype icon in the statusline
-                        },
                 },
         },
 
@@ -359,7 +358,6 @@ local config = {
                                 "markdown",
                         },
                 },
-
                 telescope = {
                         file_ignore_patterns = { "node_modules", ".idea" },
                 },
