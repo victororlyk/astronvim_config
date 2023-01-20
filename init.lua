@@ -23,7 +23,6 @@ local config = {
     -- set vim options here (vim.<first_key>.<second_key> = value)
     options = {
         opt = {
-            guicursor = "",
             relativenumber = true, -- sets vim.opt.relativenumber
             number = true, -- sets vim.opt.number
             spell = false, -- sets vim.opt.spell
@@ -116,7 +115,7 @@ local config = {
         colors = function(colors)
             colors.bg = "#282828"
             colors.section_bg = "#282828"
-            colors.fg = "#458588"
+            -- colors.fg = "#458588"
             colors.section_fg = "#458588"
             return colors
         end,
@@ -145,8 +144,8 @@ local config = {
                 -- Status line:
                 {
                     hl = { fg = "fg", bg = "bg" },
-                    astronvim.status.component.mode(),
                     astronvim.status.component.git_branch(),
+                    astronvim.status.component.mode(),
                     astronvim.status.component.fill(),
                     astronvim.status.component.lsp(),
                     astronvim.status.component.treesitter(),
@@ -175,6 +174,7 @@ local config = {
             },
             -- pin function to the top
             { "nvim-treesitter/nvim-treesitter-context" },
+            ["nvim-treesitter/nvim-treesitter"] = { run = ':echo "No TSUpdate!"' },
             -- color scheme
             { "ellisonleao/gruvbox.nvim" },
             -- split maximizer
