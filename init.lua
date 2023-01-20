@@ -427,6 +427,10 @@ local config = {
                         },
                 },
         },
+        heirline = function(config)
+                config[2] = nil
+                return config
+        end,
 
         -- This function is run last and is a good place to configuring
         -- augroups/autocommands and custom filetypes also this just pure lua so
