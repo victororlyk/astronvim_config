@@ -182,38 +182,37 @@ local config = {
                 },
         },
 
-        -- Customize Heirline options
-        heirline = {
-                -- -- Customize different separators between sections
-                -- separators = {
-                --   tab = { "", "" },
-                -- },
-                -- -- Customize colors for each element each element has a `_fg` and a `_bg`
-                colors = function(colors)
-                        colors.bg = "#282828"
-                        colors.section_bg = "#282828"
-                        colors.fg = "#458588"
-                        colors.section_fg = "#458588"
-                        return colors
-                end,
-                -- -- Customize attributes of highlighting in Heirline components
-                attributes = {
-                        -- styling choices for each heirline element, check possible attributes with `:h attr-list`
-                        git_branch = { bold = true }, -- bold the git branch statusline component
-                        mode = { bold = true },
-                },
-                -- -- Customize if icons should be highlighted
-                icon_highlights = {
-                        breadcrumbs = false, -- LSP symbols in the breadcrumbs
-                        file_icon = {
-                                winbar = false, -- Filetype icon in the winbar inactive windows
-                                statusline = true, -- Filetype icon in the statusline
-                        },
-                },
-        },
-
         -- Configure plugins
         plugins = {
+                -- Customize Heirline options
+                -- heirline = {
+                --         -- -- Customize different separators between sections
+                --         -- separators = {
+                --         --   tab = { "", "" },
+                --         -- },
+                --         -- -- Customize colors for each element each element has a `_fg` and a `_bg`
+                --         colors = function(colors)
+                --                 colors.bg = "#282828"
+                --                 colors.section_bg = "#282828"
+                --                 colors.fg = "#458588"
+                --                 colors.section_fg = "#458588"
+                --                 return colors
+                --         end,
+                --         -- -- Customize attributes of highlighting in Heirline components
+                --         attributes = {
+                --                 -- styling choices for each heirline element, check possible attributes with `:h attr-list`
+                --                 git_branch = { bold = true }, -- bold the git branch statusline component
+                --                 mode = { bold = true },
+                --         },
+                --         -- -- Customize if icons should be highlighted
+                --         icon_highlights = {
+                --                 breadcrumbs = false, -- LSP symbols in the breadcrumbs
+                --                 file_icon = {
+                --                         winbar = false, -- Filetype icon in the winbar inactive windows
+                --                         statusline = true, -- Filetype icon in the statusline
+                --                 },
+                --         },
+                -- },
                 init = {
                         -- You can disable default plugins as follows:
                         ["goolord/alpha-nvim"] = { disable = true },
